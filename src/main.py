@@ -12,6 +12,7 @@ def create_app() -> FastAPI:
 
     app.add_middleware(CORSMiddleware, ..)
     
+    
     app.include_router(api_router,prefix="/api/1")  
     return app
 app=create_app()
