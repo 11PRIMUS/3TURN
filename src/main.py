@@ -1,12 +1,17 @@
 from create import create_pipeline
 from config import setup_dir, LOG_LEVEL
+from openfabric_pysdk import configurations, Stub
+import logging
+
+logger=logging.getLogger(__name__)
 
 def execute(model):
     setup_dir()
     request=model.request
     user_prompt=request.prompt
 
-    user_config = getattr(model, "user_config", None)
+    user_config = configurations.get('super-user', None)
+    logging.info(f"configuration: {configurations}")
     app_ids = user_config.app_ids if user_config else []
     stub = Stub(app_ids)
 
