@@ -4,7 +4,7 @@ from config import IMAGE_TO_3D_APP, MODELS_DIR
 import base64
 import time
 
-class gen_3d:
+class gen_3dmodel:
     def __init__(self,stub):
         self.stub=stub
         self.app_id = IMAGE_TO_3D_APP
