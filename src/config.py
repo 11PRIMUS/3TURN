@@ -11,16 +11,9 @@ OUTPUT_DIR=Path("outputs")
 IMAGES_DIR=OUTPUT_DIR/ "images"
 MODELS_DIR=OUTPUT_DIR/"3d_model"
 
+LOG_LEVEL="INFO"
+
 def setup_dir():
-    for dir_path in [OUTPUT_DIR, IMAGES_DIR, MODELS_DIR]
+    for dir_path in [OUTPUT_DIR, IMAGES_DIR, MODELS_DIR]:
         dir_path.mkdir(exist_ok=True)
-        
 
-class Settings(BaseSettings):
-    app_name:str="model base pipeline"
-    debug:bool =False
-
-    class config:
-        env_file=".env"
-
-settings=Settings()

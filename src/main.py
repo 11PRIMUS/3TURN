@@ -1,20 +1,41 @@
-from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from fastapi.middleware.cors import CORSMiddleware
-from api.routes import router as api_router
+from create import create_pipeline
+from config import setup_dir, LOG_LEVEL
 
+def execute(model):
+    setup_dir()
+    request=model.request
+    user_prompt=request.prompt
 
-@asynccontextmanager
-async def lifespan(app:FastAPI):
-    create_tables()
-    yield
+    user_config = getattr(model, "user_config", None)
+    app_ids = user_config.app_ids if user_config else []
+    stub = Stub(app_ids)
 
-def create_app() -> FastAPI:
-    app=FastAPI( title=settings.app_name, version=settings.app_version, lifespan=lifespan)
+    try:
+        pipline =create_pipeline(stub, user_config)
+        result=pipline.process(user_prompt)
+        if result['success']:
+            message=format_success_msg(result)
+        else:
+            message=format_err_msg(result)
 
-    app.add_middleware(CORSMiddleware, ..)
+    except Exception as e:
+        message=f"processing failed: {str(e)}"
 
-    
-    app.include_router(api_router,prefix="/api/1")  
-    return app
-app=create_app()
+    model.response.message=message
+
+def format_success_msg(result):
+    return f"""creation completed
+
+Original: {result['original_prompt']}
+Image: {result['image_path']}
+3d_model: {result['model_path']}
+
+found {result['similar_found']} similar creation .
+your vision is now a 3D reality"""
+
+def format_err_msg(result):
+    return f""" generation failed
+Prompt: {result['original_prompt']}
+Error: {result['error']}
+
+please try again."""
