@@ -48,3 +48,31 @@ def save_creation(db_path: str, original_prompt: str, enhanced_prompt: str, imag
 
     return creation_id
 
+def get_recent_creation(db_path: str, limit: int =5)-> List[Dict]:
+    conn=sqlite3.connect(db_path)
+    cursor=conn.cursor()
+
+    cursor.execute('''
+        SELECT * FROM creations 
+        ORDER BY timestamp DESC 
+        LIMIT ?
+    ''', (limit,))     
+
+    results=[]
+
+    for row in cursor.fetchall():
+        creation ={
+            'id': row[0],
+                'timestamp': row[1],
+                'original_prompt': row[2],
+                'enhanced_prompt': row[3],
+                'image_path': row[4],
+                'model_3d_path': row[5],
+                'metadata': json.loads(row[6]) if row[6] else {}
+        }
+        results.append(creation)
+
+    conn.close()
+    return results
+
+

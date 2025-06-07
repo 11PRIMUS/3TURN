@@ -1,3 +1,11 @@
 .env
 venv
-output
+output/
+__pycache__/
+.Python
+*.log
+logs/
+.env
+creative_memory.db
+temp/
+.DS_Store
