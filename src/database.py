@@ -25,7 +25,7 @@ def init_db(db_path: str):
     conn.close()
     logger.info("db init")
 
-def save_creation(db_path: str, original_prompt: str, enhanced_prompt: str, image_path: str=None, mode_3d_path: str=None, metadata: Dict=None) ->int:
+def save_creation(db_path: str, original_prompt: str, enhanced_prompt: str, image_path: str=None, model_3d_path: str=None, metadata: Dict=None) ->int:
     """new creation"""
     conn=sqlite3.connect(db_path)
     cursor=conn.cursor()
