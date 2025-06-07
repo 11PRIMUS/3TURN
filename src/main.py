@@ -1,6 +1,12 @@
+import os
+import sys
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 from create import create_pipeline
 from config import setup_dir, LOG_LEVEL
-from openfabric_pysdk import configurations, Stub
+import openfabric_pysdk 
 import logging
 
 logger=logging.getLogger(__name__)

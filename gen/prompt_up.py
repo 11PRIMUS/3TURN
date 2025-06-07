@@ -25,7 +25,8 @@ def upgrade(user_prompt:str, history: List[str] =None)-> str :
             top_p=0.95,
             messages=message
         )
-        enhanced= response.choices[0].message.contentlogger.info("prompt enhanced using qwen")
+        enhanced= response.choices[0].message.content
+        logger.info("prompt enhanced using qwen")
         return enhanced.strip()
     except Exception as e:
         logger.warning(f"enhance failed")

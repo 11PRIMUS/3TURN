@@ -1,4 +1,4 @@
-from prompt_up import upgrade
+from gen.prompt_up import upgrade
 from gen.image_gen import Image_gen
 from gen.gen_3d import gen_3dmodel
 from typing import Dict, Any, Optional

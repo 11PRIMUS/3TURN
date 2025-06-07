@@ -1,0 +1,2 @@
+openfabric-pysdk
+openai

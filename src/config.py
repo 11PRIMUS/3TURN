@@ -1,5 +1,4 @@
 import os
-from pydantic_settings import BaseSettings
 from pathlib import Path
 
 TEXT_TO_IMAGE_APP = 'f0997a01-d6d3-a5fe-53d8-561300318557'
